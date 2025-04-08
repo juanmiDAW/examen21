@@ -1,3 +1,6 @@
+@php
+    use App\Models\Nota;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -19,6 +22,11 @@
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Nombre
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Nota final
                                         </th>
                                 </thead>
                                 <tbody>
@@ -54,6 +62,30 @@
                                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                                     Notas del alumno
                                                 </a>
+                                            </td>
+                                            @php
+                                                $notas = Nota::where('alumno_id', $alumno->id)
+                                                    ->select('ccee_id', \DB::raw('MAX(nota) as nota'))
+                                                    ->groupBy('ccee_id')
+                                                    ->get();
+
+                                                $contador = 0;
+                                                $suma = 0;
+                                                foreach ($notas as $nota) {
+                                                    $contador++;
+                                                    $suma += $nota->nota;
+                                                }
+
+                                                if ($contador == 0) {
+                                                    $final = 0;
+                                                } else {
+                                                    $final = $suma / $contador;
+                                                }
+                                                $contador = 0;
+                                                $suma = 0;
+                                            @endphp
+                                            <td>
+                                                {{ $final }}
                                             </td>
                                             {{-- <td class="px-6 py-4">
                                                 <a href="{{ route('alumnos.notas', ['alumno'=>$alumno->id]) }}"

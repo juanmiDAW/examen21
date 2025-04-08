@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAlumnoRequest;
 use App\Http\Requests\UpdateAlumnoRequest;
 use App\Models\Alumno;
+use App\Models\Nota;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -15,7 +16,10 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        return view('alumnos.index',['alumnos' => Alumno::all()]);
+       
+        return view('alumnos.index', [
+            'alumnos' => Alumno::all(),
+        ]);
     }
 
     /**
@@ -42,7 +46,7 @@ class AlumnoController extends Controller
      */
     public function show(Alumno $alumno)
     {
-        return view('alumnos.show', ['alumno'=>$alumno]);
+        return view('alumnos.show', ['alumno' => $alumno]);
     }
 
     /**
@@ -50,7 +54,7 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        return view('alumnos.edit', ['alumno'=>$alumno]);
+        return view('alumnos.edit', ['alumno' => $alumno]);
     }
 
     /**
@@ -70,7 +74,7 @@ class AlumnoController extends Controller
      */
     public function destroy(Alumno $alumno)
     {
-        $alumno -> delete();
+        $alumno->delete();
         return redirect()->route('alumnos.index');
     }
 }
