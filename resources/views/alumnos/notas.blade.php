@@ -19,11 +19,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- {{dd($notas)}} --}}
                                     @foreach ($notas as $nota)
-                                    <tr>
-                                        <td>{{$nota->notas->ccee_id}}</td>
-                                        <td>{{$nota->notas->nota}}</td>
-                                    </tr>
+                                        @foreach ($nota->notas as $criterio)
+                                            <tr>
+                                                <td>{{ $criterio->ccee->ce }}</td>
+                                                <td>{{ $criterio->nota }}</td>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
                                 </tbody>
                             </table>

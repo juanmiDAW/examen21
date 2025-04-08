@@ -9,6 +9,8 @@ class Ccee extends Model
 {
     /** @use HasFactory<\Database\Factories\CceeFactory> */
     use HasFactory;
+    
+    protected $table = 'ccee';
 
     protected $fillable = ['ce', 'descripcion'];
 

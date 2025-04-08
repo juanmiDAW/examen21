@@ -19,7 +19,7 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 Route::resource('alumnos', AlumnoController::class);
 
-Route::get('alumno/criterios/{id}', AlumnoController::class, function(Alumno $id){
+Route::get('alumno/criterios/{id}', function( $id){
     $notas = Alumno::with('notas')->where('id', $id)->get();
     return view('alumnos.notas', ['notas'=>$notas]);
 })->name('alumnos.notas');
